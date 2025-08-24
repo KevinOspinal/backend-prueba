@@ -4,8 +4,9 @@ import os
 
 from alembic import context
 from sqlalchemy import engine_from_config, pool
-from app.database import Base
-from app.config import settings
+from app.core.database import Base
+from app.core.config import settings
+
 
 # Añadimos el path para que pueda importar la app
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))

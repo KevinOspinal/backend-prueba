@@ -7,7 +7,6 @@ from sqlalchemy import engine_from_config, pool
 from app.core.database import Base
 from app.core.config import settings
 
-
 # Añadimos el path para que pueda importar la app
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -24,19 +23,14 @@ if config.config_file_name is not None:
 # Aquí indicamos la metadata de los modelos
 target_metadata = Base.metadata
 
-# Construimos la URL a partir de .env usando settings
+# ✅ Usamos la URL pero quitamos +asyncpg para que Alembic funcione
 def get_url():
-    return (
-        f"postgresql+psycopg2://{settings.DB_USER}:{settings.DB_PASSWORD}@"
-        f"{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
-    )
-
+    return settings.DATABASE_URL.replace("+asyncpg", "")
 
 def run_migrations_offline() -> None:
     """Ejecuta migraciones en modo offline."""
-    url = get_url()
     context.configure(
-        url=url,
+        url=get_url(),
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},

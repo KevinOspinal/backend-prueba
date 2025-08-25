@@ -25,7 +25,7 @@ target_metadata = Base.metadata
 
 # ✅ Usamos la URL pero quitamos +asyncpg para que Alembic funcione
 def get_url():
-    return settings.DATABASE_URL.replace("+asyncpg", "")
+    return settings.DATABASE_URL.replace("+asyncpg", "+psycopg")
 
 def run_migrations_offline() -> None:
     """Ejecuta migraciones en modo offline."""

@@ -5,7 +5,12 @@ from app.schemas.marca import MarcaCreate, MarcaUpdate
 
 
 async def create_marca(db: AsyncSession, marca: MarcaCreate):
-    nueva_marca = Marca(nombre=marca.nombre, descripcion=marca.descripcion)
+    nueva_marca = Marca(
+        nombre=marca.nombre,
+        descripcion=marca.descripcion,
+        titular=marca.titular,  
+        estado=marca.estado     
+    )
     db.add(nueva_marca)
     await db.commit()
     await db.refresh(nueva_marca)
@@ -31,6 +36,10 @@ async def update_marca(db: AsyncSession, marca_id: int, datos: MarcaUpdate):
         marca.nombre = datos.nombre
     if datos.descripcion:
         marca.descripcion = datos.descripcion
+    if datos.titular:
+        marca.titular = datos.titular   
+    if datos.estado:
+        marca.estado = datos.estado    
     await db.commit()
     await db.refresh(marca)
     return marca

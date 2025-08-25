@@ -19,7 +19,7 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# Configuración de CORS (orígenes permitidos)
+# Configuración de CORS 
 origins = [
     "http://localhost",
     "http://localhost:8000",    

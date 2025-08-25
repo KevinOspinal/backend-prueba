@@ -20,10 +20,10 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Aquí indicamos la metadata de los modelos
+# Metadata de los modelos
 target_metadata = Base.metadata
 
-# ✅ Usamos la URL pero quitamos +asyncpg para que Alembic funcione
+# URL pero quitamos +asyncpg para que Alembic funcione
 def get_url():
     return settings.DATABASE_URL.replace("+asyncpg", "+psycopg")
 
